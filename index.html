@@ -3,75 +3,163 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Abhi Senghawala - Full Stack Developer portfolio showcasing web development projects and skills" />
-    <meta name="keywords" content="Full Stack Developer, React, Node.js, Tailwind CSS, Portfolio, Web Development" />
-    <meta property="og:title" content="Abhi Senghawala - Full Stack Developer" />
+    <meta
+      name="description"
+      content="Abhi Senghawala - Full Stack Developer portfolio showcasing web development projects and skills"
+    />
+    <meta
+      name="keywords"
+      content="Full Stack Developer, React, Node.js, Tailwind CSS, Portfolio, Web Development"
+    />
+    <meta
+      property="og:title"
+      content="Abhi Senghawala - Full Stack Developer"
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://abhisenghawala.dev" />
     <title>Abhi Senghawala - Full Stack Developer Portfolio</title>
-    
+
     <link href="/src/output.css" rel="stylesheet" />
-    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <!-- Google Fonts - Inter for clean typography -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <!-- Devicon icons -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
     />
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
     <style>
-      * {
-        font-family: "Inter", sans-serif;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      .timeline-dot {
-        position: relative;
-      }
-      .timeline-dot::before {
-        content: "";
-        position: absolute;
-        left: -0.5rem;
-        top: 0.5rem;
-        width: 0.75rem;
-        height: 0.75rem;
-        border-radius: 50%;
-        background-color: #3b82f6;
-        border: 2px solid white;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      .back-to-top {
-        position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        display: none;
-        z-index: 99;
-      }
-      .back-to-top.show {
-        display: block;
-      }
+      
     </style>
   </head>
   <body class="bg-gray-50 text-gray-700">
     <!-- Back to Top Button -->
-    <button id="backToTop" class="back-to-top bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg hover:bg-blue-700 transition">
+    <button
+      id="backToTop"
+      class="back-to-top bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg hover:bg-blue-700 transition"
+    >
       <i class="fas fa-arrow-up"></i>
     </button>
+
+    <!-- Login/Register Modal -->
+    <div id="authModal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+        <h2 class="text-2xl font-bold mb-6 text-center" id="modalTitle">
+          Login
+        </h2>
+
+        <form id="loginForm" class="space-y-4" onsubmit="handleLogin(event)">
+          <div>
+            <label class="block text-sm font-medium mb-1">Email</label>
+            <input
+              type="email"
+              id="loginEmail"
+              required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Password</label>
+            <input
+              type="password"
+              id="loginPassword"
+              required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+          >
+            Login
+          </button>
+          <p class="text-center text-sm text-gray-600">
+            Don't have an account?
+            <a
+              href="#"
+              onclick="showRegister()"
+              class="text-blue-600 hover:underline"
+              >Register</a
+            >
+          </p>
+        </form>
+
+        <form
+          id="registerForm"
+          class="space-y-4 hidden"
+          onsubmit="handleRegister(event)"
+        >
+          <div>
+            <label class="block text-sm font-medium mb-1">Name</label>
+            <input
+              type="text"
+              id="registerName"
+              required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Email</label>
+            <input
+              type="email"
+              id="registerEmail"
+              required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Password</label>
+            <input
+              type="password"
+              id="registerPassword"
+              required
+              minlength="6"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              id="registerConfirmPassword"
+              required
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+          >
+            Register
+          </button>
+          <p class="text-center text-sm text-gray-600">
+            Already have an account?
+            <a
+              href="#"
+              onclick="showLogin()"
+              class="text-blue-600 hover:underline"
+              >Login</a
+            >
+          </p>
+        </form>
+
+        <div id="authMessage" class="text-sm text-center mt-4"></div>
+      </div>
+    </div>
 
     <!-- NavBar -->
     <nav
       class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200"
+      id="navbar"
     >
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
@@ -121,15 +209,38 @@
               class="text-gray-700 hover:text-blue-600 transition text-sm font-medium"
               >Contact</a
             >
+
+            <button
+              id="themeToggle"
+              class="theme-toggle text-gray-700 hover:text-blue-600 transition text-xl"
+              onclick="toggleTheme()"
+            >
+              <i class="fas fa-moon"></i>
+            </button>
+
+            <div id="authSection">
+            </div>
           </div>
 
-          <!-- Mobile Nav -->
-          <button
-            class="md:hidden text-gray-700"
-            onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
-          >
-            <i class="fas fa-bars text-xl"></i>
-          </button>
+          <div class="flex items-center space-x-4 md:hidden">
+            <button
+              id="themeToggleMobile"
+              class="theme-toggle text-gray-700 hover:text-blue-600 transition text-xl"
+              onclick="toggleTheme()"
+            >
+              <i class="fas fa-moon"></i>
+            </button>
+            <button
+              class="text-gray-700"
+              onclick="
+                document
+                  .getElementById('mobile-menu')
+                  .classList.toggle('hidden')
+              "
+            >
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -167,6 +278,8 @@
             class="block py-2 text-gray-700 hover:text-blue-600"
             >Contact</a
           >
+          <div id="mobileAuthSection" class="py-2">
+          </div>
         </div>
       </div>
     </nav>
@@ -214,7 +327,6 @@
             <div
               class="w-80 h-80 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg"
             >
-              <!-- If you have an image, uncomment below -->
               <img
                 src="/src/assets/image/1.jpg"
                 alt="Abhi Senghawala"
@@ -288,9 +400,7 @@
           class="h-1 w-30 bg-gradient-to-br from-gray-500 to-blue-500 mx-auto mb-8"
         ></div>
         <div class="grid md:grid-cols-3 gap-6">
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-100 p-6"
-          >
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3
               class="font-semibold text-gray-900 mb-4 flex items-center justify-center gap-2 text-2xl"
             >
@@ -332,9 +442,7 @@
               </div>
             </div>
           </div>
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-100 p-6"
-          >
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3
               class="font-semibold text-gray-900 mb-4 text-2xl flex items-center justify-center gap-2"
             >
@@ -360,9 +468,7 @@
               </div>
             </div>
           </div>
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-100 p-6"
-          >
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3
               class="font-semibold text-gray-900 mb-4 flex items-center justify-center gap-2 text-2xl"
             >
@@ -385,74 +491,6 @@
               <div class="text-xl font-semibold">
                 <i class="devicon-vscode-plain text-blue-500"></i>
                 <span class="text-gray-600 ml-2">VS Code</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Skill Progress Bars -->
-        <div class="mt-12 grid md:grid-cols-2 gap-6">
-          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <h4 class="font-semibold text-gray-900 mb-4">Frontend Proficiency</h4>
-            <div class="space-y-4">
-              <div>
-                <div class="flex justify-between mb-1">
-                  <span class="text-sm font-medium text-gray-700">React.js</span>
-                  <span class="text-sm text-gray-500">85%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                  <div class="bg-blue-600 h-2 rounded-full" style="width: 85%"></div>
-                </div>
-              </div>
-              <div>
-                <div class="flex justify-between mb-1">
-                  <span class="text-sm font-medium text-gray-700">JavaScript</span>
-                  <span class="text-sm text-gray-500">80%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                  <div class="bg-blue-600 h-2 rounded-full" style="width: 80%"></div>
-                </div>
-              </div>
-              <div>
-                <div class="flex justify-between mb-1">
-                  <span class="text-sm font-medium text-gray-700">TailwindCSS</span>
-                  <span class="text-sm text-gray-500">90%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                  <div class="bg-blue-600 h-2 rounded-full" style="width: 90%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-            <h4 class="font-semibold text-gray-900 mb-4">Backend Proficiency</h4>
-            <div class="space-y-4">
-              <div>
-                <div class="flex justify-between mb-1">
-                  <span class="text-sm font-medium text-gray-700">Node.js</span>
-                  <span class="text-sm text-gray-500">75%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                  <div class="bg-blue-600 h-2 rounded-full" style="width: 75%"></div>
-                </div>
-              </div>
-              <div>
-                <div class="flex justify-between mb-1">
-                  <span class="text-sm font-medium text-gray-700">MongoDB</span>
-                  <span class="text-sm text-gray-500">70%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                  <div class="bg-blue-600 h-2 rounded-full" style="width: 70%"></div>
-                </div>
-              </div>
-              <div>
-                <div class="flex justify-between mb-1">
-                  <span class="text-sm font-medium text-gray-700">Express.js</span>
-                  <span class="text-sm text-gray-500">70%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                  <div class="bg-blue-600 h-2 rounded-full" style="width: 70%"></div>
-                </div>
               </div>
             </div>
           </div>
@@ -566,11 +604,23 @@
               class="h-48 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center relative overflow-hidden group"
             >
               <span class="text-white text-4xl font-bold">Socify</span>
-              <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center gap-4">
-                <a href="#" target="_blank" rel="noopener noreferrer" class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition">
+              <div
+                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center gap-4"
+              >
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition"
+                >
                   <i class="fab fa-github text-2xl"></i>
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition delay-75">
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition delay-75"
+                >
                   <i class="fas fa-external-link-alt text-2xl"></i>
                 </a>
               </div>
@@ -622,11 +672,23 @@
               class="h-48 bg-gradient-to-br from-gray-600 to-gray-700 flex items-center justify-center relative overflow-hidden group"
             >
               <span class="text-white text-4xl font-bold">Freelancer</span>
-              <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center gap-4">
-                <a href="#" target="_blank" rel="noopener noreferrer" class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition">
+              <div
+                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center gap-4"
+              >
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition"
+                >
                   <i class="fab fa-github text-2xl"></i>
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition delay-75">
+                <a
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition delay-75"
+                >
                   <i class="fas fa-external-link-alt text-2xl"></i>
                 </a>
               </div>
@@ -671,124 +733,6 @@
               </div>
             </div>
           </div>
-
-          <!-- P3 - New Project -->
-          <div
-            class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition"
-          >
-            <div
-              class="h-48 bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center relative overflow-hidden group"
-            >
-              <span class="text-white text-4xl font-bold">TaskFlow</span>
-              <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center gap-4">
-                <a href="#" target="_blank" rel="noopener noreferrer" class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition">
-                  <i class="fab fa-github text-2xl"></i>
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition delay-75">
-                  <i class="fas fa-external-link-alt text-2xl"></i>
-                </a>
-              </div>
-            </div>
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-3">
-                <h3 class="text-xl font-semibold text-gray-600">
-                  TaskFlow
-                </h3>
-                <span
-                  class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded"
-                  >Jan 2026</span
-                >
-              </div>
-              <p class="text-gray-600 text-sm mb-4">
-                Task Management Application
-              </p>
-              <p class="text-gray-500 text-sm mb-4">
-                Full-stack task management app with user authentication, real-time updates, and drag-drop functionality. Built with MERN stack.
-              </p>
-              <div class="flex flex-wrap gap-2">
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="devicon-mongodb-plain colored"></i>
-                  MongoDB
-                </span>
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="devicon-express-original"></i>
-                  Express
-                </span>
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="fab fa-react text-cyan-500"></i>
-                  React
-                </span>
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="fa-brands fa-node-js text-green-500"></i>
-                  Node
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- P4 - New Project -->
-          <div
-            class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition"
-          >
-            <div
-              class="h-48 bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center relative overflow-hidden group"
-            >
-              <span class="text-white text-4xl font-bold">WeatherApp</span>
-              <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center gap-4">
-                <a href="#" target="_blank" rel="noopener noreferrer" class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition">
-                  <i class="fab fa-github text-2xl"></i>
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition delay-75">
-                  <i class="fas fa-external-link-alt text-2xl"></i>
-                </a>
-              </div>
-            </div>
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-3">
-                <h3 class="text-xl font-semibold text-gray-600">
-                  WeatherApp
-                </h3>
-                <span
-                  class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded"
-                  >Dec 2025</span
-                >
-              </div>
-              <p class="text-gray-600 text-sm mb-4">
-                Real-time Weather Application
-              </p>
-              <p class="text-gray-500 text-sm mb-4">
-                Weather app using OpenWeatherMap API, featuring location search, 5-day forecast, and interactive weather maps.
-              </p>
-              <div class="flex flex-wrap gap-2">
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="fab fa-react text-cyan-500"></i>
-                  React
-                </span>
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="devicon-tailwindcss-plain colored"></i>
-                  Tailwind
-                </span>
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="fas fa-cloud-sun"></i>
-                  API
-                </span>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -802,7 +746,9 @@
           class="h-1 w-25 bg-gradient-to-br from-gray-500 to-blue-500 mx-auto mb-8"
         ></div>
         <div class="grid md:grid-cols-2 gap-6">
-          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition">
+          <div
+            class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition"
+          >
             <div class="flex gap-4">
               <div
                 class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center shrink-0"
@@ -819,13 +765,19 @@
                   technologies including React, Tailwind, Node, Express, and
                   databases.
                 </p>
-                <a href="#" class="text-blue-600 text-sm mt-2 inline-block hover:underline">
-                  View Certificate <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+                <a
+                  href="#"
+                  class="text-blue-600 text-sm mt-2 inline-block hover:underline"
+                >
+                  View Certificate
+                  <i class="fas fa-external-link-alt ml-1 text-xs"></i>
                 </a>
               </div>
             </div>
           </div>
-          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition">
+          <div
+            class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition"
+          >
             <div class="flex gap-4">
               <div
                 class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center shrink-0"
@@ -833,17 +785,19 @@
                 <i class="fas fa-language text-green-600 text-xl"></i>
               </div>
               <div>
-                <h3 class="font-semibold text-gray-600">
-                  English Proficiency
-                </h3>
+                <h3 class="font-semibold text-gray-600">English Proficiency</h3>
                 <p class="text-gray-500 text-sm">Planet Education • 2025</p>
                 <p class="text-gray-500 text-sm mt-2">
                   Certified for professional English communication skills,
                   enabling effective collaboration in global teams and clear
                   technical documentation.
                 </p>
-                <a href="#" class="text-blue-600 text-sm mt-2 inline-block hover:underline">
-                  View Certificate <i class="fas fa-external-link-alt ml-1 text-xs"></i>
+                <a
+                  href="#"
+                  class="text-blue-600 text-sm mt-2 inline-block hover:underline"
+                >
+                  View Certificate
+                  <i class="fas fa-external-link-alt ml-1 text-xs"></i>
                 </a>
               </div>
             </div>
@@ -939,9 +893,13 @@
               </div>
             </div>
 
-            <!-- Contact Form - Using Formspree -->
             <div>
-              <form id="contact-form" class="space-y-4" action="https://formspree.io/f/your-form-id" method="POST">
+              <form
+                id="contact-form"
+                class="space-y-4"
+                action="https://formspree.io/f/your-form-id"
+                method="POST"
+              >
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1"
                     >Name</label
@@ -989,53 +947,250 @@
       </section>
     </main>
 
-    <!-- Footer Section -->
     <footer class="bg-white border-t border-gray-200 py-8">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center text-gray-500 text-sm">
-          <p>&copy; 2026 Abhi Senghawala. Built with <i class="fas fa-heart text-red-500"></i> using Tailwind CSS</p>
+          <p>
+            &copy; 2026 Abhi Senghawala. Built with
+            <i class="fas fa-heart text-red-500"></i> using Tailwind CSS
+          </p>
           <p class="mt-2">
-            <a href="#home" class="hover:text-blue-600 transition">Back to Top</a>
+            <a href="#home" class="hover:text-blue-600 transition"
+              >Back to Top</a
+            >
           </p>
         </div>
       </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-      // Initialize AOS
       AOS.init({
         duration: 800,
         once: true,
-        offset: 100
+        offset: 100,
       });
 
-      // Mobile menu toggle
-      function toggleMobileMenu() {
-        document.getElementById("mobile-menu").classList.toggle("hidden");
+      function toggleTheme() {
+        const body = document.body;
+        const themeToggle = document.getElementById("themeToggle");
+        const themeToggleMobile = document.getElementById("themeToggleMobile");
+        const icon = themeToggle.querySelector("i");
+        const mobileIcon = themeToggleMobile.querySelector("i");
+
+        body.classList.toggle("dark-mode");
+
+        if (body.classList.contains("dark-mode")) {
+          icon.classList.remove("fa-moon");
+          icon.classList.add("fa-sun");
+          mobileIcon.classList.remove("fa-moon");
+          mobileIcon.classList.add("fa-sun");
+          localStorage.setItem("theme", "dark");
+        } else {
+          icon.classList.remove("fa-sun");
+          icon.classList.add("fa-moon");
+          mobileIcon.classList.remove("fa-sun");
+          mobileIcon.classList.add("fa-moon");
+          localStorage.setItem("theme", "light");
+        }
       }
 
-      // Close mobile menu when clicking a link
-      document.querySelectorAll("#mobile-menu a").forEach((link) => {
-        link.addEventListener("click", () => {
-          document.getElementById("mobile-menu").classList.add("hidden");
-        });
-      });
+      function loadTheme() {
+        const savedTheme = localStorage.getItem("theme");
+        const body = document.body;
+        const themeToggle = document.getElementById("themeToggle");
+        const themeToggleMobile = document.getElementById("themeToggleMobile");
 
-      // Contact form demo (replace with actual formspree endpoint)
+        if (savedTheme === "dark") {
+          body.classList.add("dark-mode");
+          if (themeToggle) {
+            themeToggle.querySelector("i").classList.remove("fa-moon");
+            themeToggle.querySelector("i").classList.add("fa-sun");
+          }
+          if (themeToggleMobile) {
+            themeToggleMobile.querySelector("i").classList.remove("fa-moon");
+            themeToggleMobile.querySelector("i").classList.add("fa-sun");
+          }
+        }
+      }
+      let currentUser = null;
+
+      function showAuthModal() {
+        document.getElementById("authModal").classList.add("show");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeAuthModal() {
+        document.getElementById("authModal").classList.remove("show");
+        document.body.style.overflow = "auto";
+      }
+
+      function showRegister() {
+        document.getElementById("loginForm").classList.add("hidden");
+        document.getElementById("registerForm").classList.remove("hidden");
+        document.getElementById("modalTitle").textContent = "Register";
+        document.getElementById("authMessage").innerHTML = "";
+      }
+
+      function showLogin() {
+        document.getElementById("registerForm").classList.add("hidden");
+        document.getElementById("loginForm").classList.remove("hidden");
+        document.getElementById("modalTitle").textContent = "Login";
+        document.getElementById("authMessage").innerHTML = "";
+      }
+
+      function handleLogin(event) {
+        event.preventDefault();
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        const user = users.find(
+          (u) => u.email === email && u.password === password,
+        );
+
+        if (user) {
+          currentUser = user;
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          updateAuthUI();
+          closeAuthModal();
+          showMessage("Login successful!", "success");
+        } else {
+          document.getElementById("authMessage").innerHTML =
+            "Invalid email or password";
+          document.getElementById("authMessage").style.color = "#ef4444";
+        }
+      }
+
+      function handleRegister(event) {
+        event.preventDefault();
+        const name = document.getElementById("registerName").value;
+        const email = document.getElementById("registerEmail").value;
+        const password = document.getElementById("registerPassword").value;
+        const confirmPassword = document.getElementById(
+          "registerConfirmPassword",
+        ).value;
+
+        if (password !== confirmPassword) {
+          document.getElementById("authMessage").innerHTML =
+            "Passwords do not match";
+          document.getElementById("authMessage").style.color = "#ef4444";
+          return;
+        }
+
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+        if (users.find((u) => u.email === email)) {
+          document.getElementById("authMessage").innerHTML =
+            "Email already registered";
+          document.getElementById("authMessage").style.color = "#ef4444";
+          return;
+        }
+
+        const newUser = { name, email, password };
+        users.push(newUser);
+        localStorage.setItem("users", JSON.stringify(users));
+
+        currentUser = newUser;
+        localStorage.setItem("currentUser", JSON.stringify(newUser));
+        updateAuthUI();
+        closeAuthModal();
+        showMessage("Registration successful!", "success");
+      }
+
+      function logout() {
+        currentUser = null;
+        localStorage.removeItem("currentUser");
+        updateAuthUI();
+        showMessage("Logged out successfully", "success");
+      }
+
+      function updateAuthUI() {
+        const authSection = document.getElementById("authSection");
+        const mobileAuthSection = document.getElementById("mobileAuthSection");
+
+        if (currentUser) {
+          authSection.innerHTML = `
+            <div class="flex items-center space-x-3">
+              <div class="user-avatar" onclick="showUserMenu()">
+                ${currentUser.name.charAt(0).toUpperCase()}
+              </div>
+              <button onclick="logout()" class="text-sm text-gray-700 hover:text-blue-600 transition">
+                Logout
+              </button>
+            </div>
+          `;
+
+          mobileAuthSection.innerHTML = `
+            <div class="py-2 space-y-2">
+              <div class="flex items-center space-x-3 px-2">
+                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                  ${currentUser.name.charAt(0).toUpperCase()}
+                </div>
+                <span class="text-gray-700">${currentUser.name}</span>
+              </div>
+              <button onclick="logout()" class="w-full text-left px-2 py-2 text-gray-700 hover:text-blue-600 transition">
+                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+              </button>
+            </div>
+          `;
+        } else {
+          authSection.innerHTML = `
+            <button onclick="showAuthModal()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-medium">
+              Login / Register
+            </button>
+          `;
+
+          mobileAuthSection.innerHTML = `
+            <button onclick="showAuthModal()" class="w-full text-left px-2 py-2 text-gray-700 hover:text-blue-600 transition">
+              <i class="fas fa-sign-in-alt mr-2"></i>Login / Register
+            </button>
+          `;
+        }
+      }
+
+      function showUserMenu() {
+        alert(`Logged in as: ${currentUser.name}\nEmail: ${currentUser.email}`);
+      }
+
+      function showMessage(message, type) {
+        const status = document.getElementById("form-status");
+        status.innerHTML = message;
+        status.classList.add(
+          type === "success" ? "text-green-600" : "text-red-600",
+        );
+        setTimeout(() => {
+          status.innerHTML = "";
+          status.classList.remove("text-green-600", "text-red-600");
+        }, 3000);
+      }
+
+      function loadCurrentUser() {
+        const savedUser = localStorage.getItem("currentUser");
+        if (savedUser) {
+          currentUser = JSON.parse(savedUser);
+          updateAuthUI();
+        }
+      }
+
       document
         .getElementById("contact-form")
         .addEventListener("submit", function (e) {
           e.preventDefault();
           const status = document.getElementById("form-status");
-          status.innerHTML = "✓ Message sent successfully! (Demo)";
-          status.classList.add("text-green-600");
-          setTimeout(() => (status.innerHTML = ""), 3000);
-          this.reset();
+
+          if (currentUser) {
+            status.innerHTML = "✓ Message sent successfully! (Demo)";
+            status.classList.add("text-green-600");
+            setTimeout(() => (status.innerHTML = ""), 3000);
+            this.reset();
+          } else {
+            showAuthModal();
+            document.getElementById("authMessage").innerHTML =
+              "Please login to send a message";
+            document.getElementById("authMessage").style.color = "#ef4444";
+          }
         });
 
-      // Smooth scroll for navigation
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -1046,7 +1201,6 @@
         });
       });
 
-      // Active nav link on scroll
       window.addEventListener("scroll", () => {
         let current = "";
         const sections = document.querySelectorAll("section");
@@ -1069,31 +1223,41 @@
         });
       });
 
-      // Back to top button
-      const backToTop = document.getElementById('backToTop');
-      
-      window.addEventListener('scroll', () => {
+      const backToTop = document.getElementById("backToTop");
+
+      window.addEventListener("scroll", () => {
         if (window.scrollY > 500) {
-          backToTop.classList.add('show');
+          backToTop.classList.add("show");
         } else {
-          backToTop.classList.remove('show');
+          backToTop.classList.remove("show");
         }
       });
 
-      backToTop.addEventListener('click', () => {
+      backToTop.addEventListener("click", () => {
         window.scrollTo({
           top: 0,
-          behavior: 'smooth'
+          behavior: "smooth",
         });
       });
 
-      // Add year dynamically in footer
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
         const year = new Date().getFullYear();
-        const footerYear = document.querySelector('footer p');
+        const footerYear = document.querySelector("footer p");
         if (footerYear) {
-          footerYear.innerHTML = footerYear.innerHTML.replace('2026', year);
+          footerYear.innerHTML = footerYear.innerHTML.replace("2026", year);
         }
+      });
+
+      window.addEventListener("click", (e) => {
+        const modal = document.getElementById("authModal");
+        if (e.target === modal) {
+          closeAuthModal();
+        }
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadTheme();
+        loadCurrentUser();
       });
     </script>
   </body>
