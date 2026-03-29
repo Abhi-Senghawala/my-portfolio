@@ -1,1050 +1,1175 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Abhi Senghawala - Full Stack Developer portfolio showcasing web development projects and skills"
+      content="Abhi Senghawala - Full Stack Developer | MERN Stack | React | Node.js | Portfolio"
     />
     <meta
       name="keywords"
-      content="Full Stack Developer, React, Node.js, Tailwind CSS, Portfolio, Web Development"
+      content="Full Stack Developer, MERN, React, Node.js, MongoDB, Express, Portfolio"
     />
     <meta
       property="og:title"
       content="Abhi Senghawala - Full Stack Developer"
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://abhisenghawala.dev" />
-    <title>Abhi Senghawala - Full Stack Developer Portfolio</title>
-
+    <title>Abhi Senghawala — Full Stack Developer</title>
     <link href="/src/output.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
     />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-    <!-- Swiper CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
     />
-    <style>
-      /* Custom Swiper styles */
-      .skills-swiper {
-        padding: 0.5rem 0 2.5rem 0;
-      }
-      .swiper-button-prev,
-      .swiper-button-next {
-        color: #2563eb; /* blue-600 */
-        background: white;
-        width: 40px;
-        height: 40px;
-        border-radius: 9999px;
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-        border: 1px solid #e5e7eb;
-      }
-      .swiper-button-prev:after,
-      .swiper-button-next:after {
-        font-size: 1rem;
-        font-weight: bold;
-      }
-      .swiper-button-prev:hover,
-      .swiper-button-next:hover {
-        background: #f3f4f6;
-      }
-      .swiper-pagination-bullet {
-        background: #9ca3af;
-        opacity: 0.6;
-      }
-      .swiper-pagination-bullet-active {
-        background: #2563eb;
-        opacity: 1;
-      }
-      /* Dark mode support */
-      .dark-mode .swiper-button-prev,
-      .dark-mode .swiper-button-next {
-        background: #1f2937;
-        border-color: #374151;
-        color: #60a5fa;
-      }
-      .dark-mode .swiper-pagination-bullet {
-        background: #4b5563;
-      }
-      .dark-mode .swiper-pagination-bullet-active {
-        background: #60a5fa;
-      }
-      /* Skill slide styling */
-      .skill-slide {
-        background-color: white;
-        border: 1px solid #f3f4f6;
-        border-radius: 0.75rem;
-        padding: 1.5rem 1rem;
-        text-align: center;
-        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-        transition: all 0.2s;
-        height: 120px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-      .skill-slide:hover {
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-        border-color: #d1d5db;
-      }
-      .skill-slide i, .skill-slide .devicon {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
-      }
-      .skill-slide span {
-        font-size: 1rem;
-        font-weight: 500;
-        color: #374151;
-      }
-      .dark-mode .skill-slide {
-        background-color: #1f2937;
-        border-color: #374151;
-      }
-      .dark-mode .skill-slide span {
-        color: #e5e7eb;
-      }
-    </style>
   </head>
-  <body class="bg-gray-50 text-gray-700">
-    <!-- Back to Top Button -->
-    <button
-      id="backToTop"
-      class="back-to-top bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg hover:bg-blue-700 transition"
-    >
+  <body>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- SPLASH SCREEN -->
+    <div id="splash-screen">
+      <img src="/src/assets/image/splash-screen.png" alt="Abhi Senghawala Logo" class="splash-logo" style="background: none; box-shadow: none; width: 120px; height: auto;" />
+      <div class="splash-title">Abhi Senghawala</div>
+      <div class="splash-subtitle">Full Stack Developer</div>
+      <div class="splash-bar-wrap"><div class="splash-bar"></div></div>
+      <div class="splash-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <button id="backToTop" aria-label="Back to top">
       <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Login/Register Modal -->
+    <!-- AUTH MODAL -->
     <div id="authModal" class="modal">
       <div class="modal-content">
-        <span class="close-modal" onclick="closeAuthModal()">&times;</span>
-        <h2 class="text-2xl font-bold mb-6 text-center" id="modalTitle">
-          Login
-        </h2>
-
-        <form id="loginForm" class="space-y-4" onsubmit="handleLogin(event)">
+        <button class="close-modal" onclick="closeAuthModal()">&times;</button>
+        <div class="modal-title" id="modalTitle">Login</div>
+        <form
+          id="loginForm"
+          onsubmit="handleLogin(event)"
+          style="display: flex; flex-direction: column; gap: 1rem"
+        >
           <div>
-            <label class="block text-sm font-medium mb-1">Email</label>
-            <input
+            <label class="form-label">Email</label
+            ><input
               type="email"
               id="loginEmail"
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              class="form-input"
+              placeholder="you@email.com"
             />
           </div>
           <div>
-            <label class="block text-sm font-medium mb-1">Password</label>
-            <input
+            <label class="form-label">Password</label
+            ><input
               type="password"
               id="loginPassword"
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              class="form-input"
+              placeholder="••••••••"
             />
           </div>
           <button
             type="submit"
-            class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+            class="btn-primary"
+            style="justify-content: center"
           >
             Login
           </button>
-          <p class="text-center text-sm text-gray-600">
-            Don't have an account?
-            <a
-              href="#"
-              onclick="showRegister()"
-              class="text-blue-600 hover:underline"
+          <p style="text-align: center; font-size: 0.85rem; color: #64748b">
+            No account?
+            <a href="#" onclick="showRegister()" style="color: #60a5fa"
               >Register</a
             >
           </p>
         </form>
-
         <form
           id="registerForm"
-          class="space-y-4 hidden"
           onsubmit="handleRegister(event)"
+          style="display: none; flex-direction: column; gap: 1rem"
         >
           <div>
-            <label class="block text-sm font-medium mb-1">Name</label>
-            <input
+            <label class="form-label">Name</label
+            ><input
               type="text"
               id="registerName"
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              class="form-input"
+              placeholder="Your name"
             />
           </div>
           <div>
-            <label class="block text-sm font-medium mb-1">Email</label>
-            <input
+            <label class="form-label">Email</label
+            ><input
               type="email"
               id="registerEmail"
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              class="form-input"
+              placeholder="you@email.com"
             />
           </div>
           <div>
-            <label class="block text-sm font-medium mb-1">Password</label>
-            <input
+            <label class="form-label">Password</label
+            ><input
               type="password"
               id="registerPassword"
               required
               minlength="6"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              class="form-input"
+              placeholder="••••••••"
             />
           </div>
           <div>
-            <label class="block text-sm font-medium mb-1"
-              >Confirm Password</label
-            >
-            <input
+            <label class="form-label">Confirm</label
+            ><input
               type="password"
               id="registerConfirmPassword"
               required
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              class="form-input"
+              placeholder="••••••••"
             />
           </div>
           <button
             type="submit"
-            class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+            class="btn-primary"
+            style="justify-content: center"
           >
             Register
           </button>
-          <p class="text-center text-sm text-gray-600">
-            Already have an account?
-            <a
-              href="#"
-              onclick="showLogin()"
-              class="text-blue-600 hover:underline"
-              >Login</a
-            >
+          <p style="text-align: center; font-size: 0.85rem; color: #64748b">
+            Have account?
+            <a href="#" onclick="showLogin()" style="color: #60a5fa">Login</a>
           </p>
         </form>
-
-        <div id="authMessage" class="text-sm text-center mt-4"></div>
+        <div
+          id="authMessage"
+          style="font-size: 0.85rem; text-align: center; margin-top: 0.75rem"
+        ></div>
       </div>
     </div>
 
-    <!-- NavBar -->
-    <nav
-      class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200"
-      id="navbar"
-    >
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-          <div class="flex items-center space-x-3">
-            <div
-              class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center"
-            >
-              <span class="text-white font-bold text-lg">AS</span>
-            </div>
-            <span class="font-semibold text-2xl text-gray-900"
-              >Abhi Senghawala</span
-            >
+    <!-- NAVBAR -->
+    <nav id="navbar">
+      <div style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 68px;
+          "
+        >
+          <div style="display: flex; align-items: center; gap: 0.75rem">
+            <div class="nav-logo-box">AS</div>
+            <span class="nav-brand">Abhi Senghawala</span>
           </div>
-          <div class="hidden md:flex items-center space-x-8">
-            <a
-              href="#home"
-              class="text-gray-700 hover:text-blue-600 transition text-sm font-medium"
-              >Home</a
-            >
-            <a
-              href="#about"
-              class="text-gray-700 hover:text-blue-600 transition text-sm font-medium"
-              >About</a
-            >
-            <a
-              href="#skills"
-              class="text-gray-700 hover:text-blue-600 transition text-sm font-medium"
-              >Skills</a
-            >
-            <a
-              href="#experience"
-              class="text-gray-700 hover:text-blue-600 transition text-sm font-medium"
-              >Experience</a
-            >
-            <a
-              href="#projects"
-              class="text-gray-700 hover:text-blue-600 transition text-sm font-medium"
-              >Projects</a
-            >
-            <a
-              href="#certificates"
-              class="text-gray-700 hover:text-blue-600 transition text-sm font-medium"
-              >Certificates</a
-            >
-            <a
-              href="#contact"
-              class="text-gray-700 hover:text-blue-600 transition text-sm font-medium"
-              >Contact</a
-            >
-
+          <div
+            id="desktopNav"
+            style="display: flex; align-items: center; gap: 1.75rem"
+          >
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#certificates" class="nav-link">Certs</a>
+            <a href="#contact" class="nav-link">Contact</a>
             <button
               id="themeToggle"
-              class="theme-toggle text-gray-700 hover:text-blue-600 transition text-xl"
+              class="theme-toggle"
               onclick="toggleTheme()"
             >
-              <i class="fas fa-moon"></i>
+              <i class="fas fa-sun"></i>
             </button>
-
             <div id="authSection"></div>
           </div>
-
-          <div class="flex items-center space-x-4 md:hidden">
+          <div
+            id="mobileControls"
+            style="display: none; align-items: center; gap: 0.75rem"
+          >
             <button
               id="themeToggleMobile"
-              class="theme-toggle text-gray-700 hover:text-blue-600 transition text-xl"
+              class="theme-toggle"
               onclick="toggleTheme()"
             >
-              <i class="fas fa-moon"></i>
+              <i class="fas fa-sun"></i>
             </button>
             <button
-              class="text-gray-700"
               onclick="
                 document
                   .getElementById('mobile-menu')
                   .classList.toggle('hidden')
               "
+              style="
+                background: none;
+                border: none;
+                color: #94a3b8;
+                font-size: 1.3rem;
+                cursor: pointer;
+                padding: 0.4rem;
+              "
             >
-              <i class="fas fa-bars text-xl"></i>
+              <i class="fas fa-bars"></i>
             </button>
           </div>
         </div>
       </div>
-
-      <div
-        id="mobile-menu"
-        class="hidden md:hidden bg-white border-t border-gray-200"
-      >
-        <div class="px-4 py-2 space-y-1">
-          <a href="#home" class="block py-2 text-gray-700 hover:text-blue-600"
-            >Home</a
-          >
-          <a href="#about" class="block py-2 text-gray-700 hover:text-blue-600"
-            >About</a
-          >
-          <a href="#skills" class="block py-2 text-gray-700 hover:text-blue-600"
-            >Skills</a
-          >
-          <a
-            href="#experience"
-            class="block py-2 text-gray-700 hover:text-blue-600"
-            >Experience</a
-          >
-          <a
-            href="#projects"
-            class="block py-2 text-gray-700 hover:text-blue-600"
-            >Projects</a
-          >
-          <a
-            href="#certificates"
-            class="block py-2 text-gray-700 hover:text-blue-600"
-            >Certificates</a
-          >
-          <a
-            href="#contact"
-            class="block py-2 text-gray-700 hover:text-blue-600"
-            >Contact</a
-          >
-          <div id="mobileAuthSection" class="py-2"></div>
-        </div>
+      <div id="mobile-menu" class="hidden">
+        <a href="#home">Home</a><a href="#about">About</a
+        ><a href="#skills">Skills</a> <a href="#experience">Experience</a
+        ><a href="#projects">Projects</a>
+        <a href="#certificates">Certifications</a><a href="#contact">Contact</a>
+        <div id="mobileAuthSection" style="padding: 0.75rem 1.5rem"></div>
       </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <!-- Hero Section -->
-      <section id="home" class="mb-20" data-aos="fade-up">
+    <style>
+      @media (max-width: 768px) {
+        #desktopNav {
+          display: none !important;
+        }
+        #mobileControls {
+          display: flex !important;
+        }
+      }
+    </style>
+
+    <main style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem">
+      <!-- HERO -->
+      <section
+        id="home"
+        style="
+          min-height: 88vh;
+          display: flex;
+          align-items: center;
+          position: relative;
+          padding: 5rem 0;
+        "
+        data-aos="fade-up"
+      >
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
         <div
-          class="flex flex-col md:flex-row items-center justify-between gap-12"
+          id="heroInner"
+          style="
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            width: 100%;
+          "
         >
-          <div class="flex-1">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Hi, I'm <span class="text-blue-600">Abhi Senghawala</span>
+          <div style="flex: 1; max-width: 580px">
+            <div class="hero-badge">
+              <span class="dot"></span>Open to opportunities
+            </div>
+            <h1 class="hero-h1">
+              Hi, I'm<br /><span class="gradient-text">Abhi Senghawala</span>
             </h1>
-            <p class="text-xl text-gray-600 mb-6">
-              Full Stack Developer | Intern at Wappzo Infotech Pvt. Ltd.
+            <p class="hero-sub">
+              Full Stack Developer &nbsp;·&nbsp; MERN Stack &nbsp;·&nbsp; Intern
+              @ Wappzo
             </p>
-            <p class="text-gray-600 mb-8 leading-relaxed">
-              Self-driven developer with hands-on experience in building
-              responsive web applications. Currently interning at Wappzo
-              Infotech, passionate about creating efficient web solutions and
-              clean user experiences.
+            <p class="hero-desc">
+              Self-driven developer building production-ready web apps with
+              modern stacks. Passionate about clean architecture, real-time
+              systems, and seamless user experiences.
             </p>
-            <div class="flex flex-wrap gap-4">
-              <a
-                href="#contact"
-                class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
-                >Get In Touch</a
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem">
+              <a href="#contact" class="btn-primary"
+                ><i class="fas fa-paper-plane"></i>&nbsp;Get In Touch</a
               >
-              <a
-                href="#projects"
-                class="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-blue-700 transition font-medium"
-                >View Projects</a
+              <a href="#projects" class="btn-secondary"
+                ><i class="fas fa-code"></i>&nbsp;View Projects</a
               >
               <a
                 href="/src/assets/PDF/Abhi-resume.pdf"
                 download
-                class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium"
+                class="btn-green"
+                ><i class="fas fa-download"></i>&nbsp;Resume</a
               >
-                <i class="fas fa-download mr-2"></i>Download Resume
-              </a>
             </div>
           </div>
-          <div class="flex-1 flex justify-center">
-            <div
-              class="w-80 h-80 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg"
-            >
-              <img
-                src="/src/assets/image/1.jpg"
-                alt="Abhi Senghawala"
-                class="w-full h-full object-cover rounded-xl"
-              />
+          <div style="position: relative; flex-shrink: 0">
+            <div class="hero-img-wrap">
+              <img src="/src/assets/image/1.jpg" alt="Abhi Senghawala" />
+            </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- About Section -->
-      <section id="about" class="mb-20" data-aos="fade-up">
-        <h2 class="text-3xl font-bold mb-2 flex items-center justify-center">
-          <span class="text-gray-600">About</span
-          ><span class="text-blue-600">Me</span>
-        </h2>
-        <div
-          class="h-1 w-20 bg-gradient-to-br from-gray-500 to-blue-500 mx-auto mb-8"
-        ></div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-          <div class="grid md:grid-cols-3 gap-8">
-            <div class="md:col-span-2">
-              <p class="text-gray-600 mb-4 leading-relaxed">
-                I'm an MCA student at Government MCA College, Maninagar,
-                Ahmedabad with a strong foundation in full-stack development. My
-                journey in tech started with HTML/CSS/JS and has evolved into
-                building complex applications with modern frameworks.
+      <!-- ABOUT -->
+      <section id="about" style="padding: 5rem 0" data-aos="fade-up">
+        <div style="text-align: center">
+          <div class="section-tag">
+            <i class="fas fa-user"></i>&nbsp;About Me
+          </div>
+        </div>
+        <h2 class="section-title">Who <span>Am I?</span></h2>
+        <div class="section-line"></div>
+        <div class="glass-card">
+          <div
+            id="aboutInner"
+            style="
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 2.5rem;
+              align-items: start;
+              margin-bottom: 2rem;
+            "
+          >
+            <div>
+              <p
+                style="
+                  color: #94a3b8;
+                  line-height: 1.9;
+                  margin-bottom: 1rem;
+                  font-size: 0.95rem;
+                "
+              >
+                I'm an <strong style="color: #60a5fa">MCA student</strong> at
+                Government MCA College, Maninagar, Ahmedabad. My journey started
+                with HTML/CSS/JS and has evolved into building complex,
+                production-ready full-stack applications with modern MERN stack.
               </p>
-              <p class="text-gray-600 mb-4 leading-relaxed">
-                Currently working as a Web Development Intern at Wappzo
-                Infotech, where I've developed a fully functional social media
-                platform using React.js and Tailwind CSS. I'm passionate about
-                clean code, responsive design, and creating intuitive user
-                experiences.
+              <p style="color: #94a3b8; line-height: 1.9; font-size: 0.95rem">
+                Currently working as a
+                <strong style="color: #60a5fa"
+                  >Web Development Intern at Wappzo Infotech</strong
+                >, where I've built and deployed Socify — a complete MERN social
+                media platform with real-time chat, JWT auth, email
+                notifications, and cloud storage integrations.
               </p>
             </div>
-            <div class="bg-gray-50 rounded-xl p-6">
-              <h3 class="font-semibold text-gray-900 mb-4">Quick Info</h3>
-              <div class="space-y-3">
-                <div class="flex items-center gap-3">
-                  <i class="fas fa-map-marker-alt text-blue-600 w-5"></i>
-                  <span class="text-gray-600">Navsari | Ahmedabad</span>
+            <div style="display: flex; flex-direction: column; gap: 0">
+              <div class="info-item">
+                <div class="info-icon">
+                  <i class="fas fa-map-marker-alt"></i>
                 </div>
-                <div class="flex items-center gap-3">
-                  <i class="fas fa-envelope text-blue-600 w-5"></i>
-                  <span class="text-gray-600">abhisenghawala@gmail.com</span>
+                <div>
+                  <div
+                    style="
+                      font-size: 0.72rem;
+                      color: #64748b;
+                      margin-bottom: 2px;
+                    "
+                  >
+                    Location
+                  </div>
+                  <div
+                    style="color: #e2e8f0; font-weight: 500; font-size: 0.9rem"
+                  >
+                    Navsari | Ahmedabad, Gujarat
+                  </div>
                 </div>
-                <div class="flex items-center gap-3">
-                  <i class="fas fa-phone text-blue-600 w-5"></i>
-                  <span class="text-gray-600">+91 95103 73689</span>
+              </div>
+              <div class="info-item">
+                <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                <div>
+                  <div
+                    style="
+                      font-size: 0.72rem;
+                      color: #64748b;
+                      margin-bottom: 2px;
+                    "
+                  >
+                    Email
+                  </div>
+                  <div
+                    style="color: #e2e8f0; font-weight: 500; font-size: 0.9rem"
+                  >
+                    abhisenghawala@gmail.com
+                  </div>
                 </div>
-                <div class="flex items-center gap-3">
-                  <i class="fas fa-graduation-cap text-blue-600 w-5"></i>
-                  <span class="text-gray-600">MCA, CPI: 7.31</span>
+              </div>
+              <div class="info-item">
+                <div class="info-icon"><i class="fas fa-phone"></i></div>
+                <div>
+                  <div
+                    style="
+                      font-size: 0.72rem;
+                      color: #64748b;
+                      margin-bottom: 2px;
+                    "
+                  >
+                    Phone
+                  </div>
+                  <div
+                    style="color: #e2e8f0; font-weight: 500; font-size: 0.9rem"
+                  >
+                    +91 95103 73689
+                  </div>
+                </div>
+              </div>
+              <div class="info-item" style="border: none">
+                <div class="info-icon">
+                  <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-size: 0.72rem;
+                      color: #64748b;
+                      margin-bottom: 2px;
+                    "
+                  >
+                    Degree
+                  </div>
+                  <div
+                    style="color: #e2e8f0; font-weight: 500; font-size: 0.9rem"
+                  >
+                    MCA &nbsp;·&nbsp; CPI: 7.31
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+          <div
+            id="statsGrid"
+            style="
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 1rem;
+            "
+          >
+            <div class="stat-box">
+              <div class="stat-num">3+</div>
+              <div class="stat-label">Projects Shipped</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num">15+</div>
+              <div class="stat-label">Technologies</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num">1+</div>
+              <div class="stat-label">Year Interning</div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- Skill Section - Individual Skills Carousel -->
-      <section id="skills" class="mb-20" data-aos="fade-up">
-        <h2 class="text-3xl font-bold mb-2 flex items-center justify-center">
-          <span class="text-gray-600">Technical</span
-          ><span class="text-blue-600">Skills</span>
-        </h2>
-        <div
-          class="h-1 w-30 bg-gradient-to-br from-gray-500 to-blue-500 mx-auto mb-8"
-        ></div>
-
-        <!-- Swiper Carousel with individual skill slides -->
+      <!-- SKILLS -->
+      <section id="skills" style="padding: 5rem 0" data-aos="fade-up">
+        <div style="text-align: center">
+          <div class="section-tag">
+            <i class="fas fa-tools"></i>&nbsp;Tech Stack
+          </div>
+        </div>
+        <h2 class="section-title">My <span>Skills</span></h2>
+        <div class="section-line"></div>
         <div class="swiper skills-swiper">
           <div class="swiper-wrapper">
-            <!-- HTML5 -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="fab fa-html5 text-orange-600"></i>
-                <span>HTML5</span>
+                <i class="fab fa-html5" style="color: #e44d26"></i
+                ><span>HTML5</span>
               </div>
             </div>
-            <!-- CSS3 -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="fab fa-css3 text-blue-600"></i>
-                <span>CSS3</span>
+                <i class="fab fa-css3-alt" style="color: #1572b6"></i
+                ><span>CSS3</span>
               </div>
             </div>
-            <!-- Bootstrap -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="fab fa-bootstrap text-purple-600"></i>
-                <span>Bootstrap</span>
+                <i class="fab fa-bootstrap" style="color: #7952b3"></i
+                ><span>Bootstrap</span>
               </div>
             </div>
-            <!-- TailwindCSS -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="devicon-tailwindcss-plain colored"></i>
-                <span>TailwindCSS</span>
+                <i class="devicon-tailwindcss-plain colored"></i
+                ><span>Tailwind</span>
               </div>
             </div>
-            <!-- JavaScript -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="fab fa-js text-yellow-500"></i>
-                <span>JavaScript</span>
+                <i class="fab fa-js" style="color: #f7df1e"></i
+                ><span>JavaScript</span>
               </div>
             </div>
-            <!-- TypeScript -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="devicon-typescript-plain text-blue-600"></i>
-                <span>TypeScript</span>
+                <i class="devicon-typescript-plain" style="color: #3178c6"></i
+                ><span>TypeScript</span>
               </div>
             </div>
-            <!-- ReactJS -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="fab fa-react text-cyan-500"></i>
-                <span>ReactJS</span>
+                <i class="fab fa-react" style="color: #61dafb"></i
+                ><span>React.js</span>
               </div>
             </div>
-            <!-- NextJS -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="devicon-nextjs-plain text-gray-900"></i>
-                <span>NextJS</span>
+                <i class="devicon-nextjs-plain" style="color: #fff"></i
+                ><span>Next.js</span>
               </div>
             </div>
-            <!-- NodeJS -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="fa-brands fa-node-js text-green-500"></i>
-                <span>NodeJS</span>
+                <i class="fab fa-node-js" style="color: #539e43"></i
+                ><span>Node.js</span>
               </div>
             </div>
-            <!-- ExpressJS -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="devicon-express-original text-gray-700"></i>
-                <span>ExpressJS</span>
+                <i class="devicon-express-original" style="color: #e2e8f0"></i
+                ><span>Express</span>
               </div>
             </div>
-            <!-- MongoDB -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="devicon-mongodb-plain text-green-500"></i>
-                <span>MongoDB</span>
+                <i class="devicon-mongodb-plain" style="color: #4db33d"></i
+                ><span>MongoDB</span>
               </div>
             </div>
-            <!-- MySQL -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="devicon-mysql-original text-blue-600"></i>
-                <span>MySQL</span>
+                <i class="devicon-mysql-original" style="color: #4479a1"></i
+                ><span>MySQL</span>
               </div>
             </div>
-            <!-- Figma -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="devicon-figma-plain text-purple-500"></i>
-                <span>Figma</span>
+                <i class="devicon-redux-plain" style="color: #764abc"></i
+                ><span>Redux</span>
               </div>
             </div>
-            <!-- Git -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="devicon-git-plain text-orange-600"></i>
-                <span>Git</span>
+                <i class="fas fa-plug" style="color: #fff; font-size: 2rem"></i
+                ><span>Socket.io</span>
               </div>
             </div>
-            <!-- GitHub -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="devicon-github-plain text-gray-900"></i>
-                <span>GitHub</span>
+                <i class="devicon-figma-plain" style="color: #f24e1e"></i
+                ><span>Figma</span>
               </div>
             </div>
-            <!-- VS Code -->
             <div class="swiper-slide">
               <div class="skill-slide">
-                <i class="devicon-vscode-plain text-blue-500"></i>
-                <span>VS Code</span>
+                <i class="devicon-git-plain" style="color: #f05032"></i
+                ><span>Git</span>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="skill-slide">
+                <i class="devicon-github-plain" style="color: #fff"></i
+                ><span>GitHub</span>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="skill-slide">
+                <i class="devicon-vscode-plain" style="color: #007acc"></i
+                ><span>VS Code</span>
               </div>
             </div>
           </div>
-          <!-- Pagination -->
-          <div class="swiper-pagination"></div>
-          <!-- Navigation -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
         </div>
       </section>
 
-      <!-- Experience & Education Section -->
-      <section id="experience" class="mb-20" data-aos="fade-up">
-        <h2
-          class="text-2xl md:text-3xl font-bold flex items-center justify-center mb-2"
+      <!-- EXPERIENCE & EDUCATION -->
+      <section id="experience" style="padding: 5rem 0" data-aos="fade-up">
+        <div style="text-align: center">
+          <div class="section-tag">
+            <i class="fas fa-briefcase"></i>&nbsp;My Journey
+          </div>
+        </div>
+        <h2 class="section-title">Experience &amp; <span>Education</span></h2>
+        <div class="section-line"></div>
+        <div
+          id="expGrid"
+          style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem"
         >
-          <span class="text-gray-600">EXPERIENCE</span>|<span
-            class="text-blue-600"
-            >EDUCATION</span
-          >
-        </h2>
-        <div
-          class="h-1 w-30 bg-gradient-to-br from-gray-500 to-blue-500 mx-auto mb-8"
-        ></div>
-        <div class="grid md:grid-cols-2 gap-8">
-          <div
-            class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
-          >
+          <div class="glass-card">
             <h3
-              class="text-xl font-semibold text-gray-600 mb-6 flex items-center justify-center gap-2"
+              style="
+                font-family: &quot;Space Grotesk&quot;, sans-serif;
+                font-size: 1.05rem;
+                font-weight: 700;
+                color: #f1f5f9;
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+              "
             >
-              <i class="fas fa-briefcase text-blue-600"></i>
-              Work Experience
+              <i class="fas fa-briefcase" style="color: #3b82f6"></i>Work
+              Experience
             </h3>
-            <div class="space-y-6">
-              <div class="relative pl-8 timeline-dot">
-                <div class="flex items-center justify-between">
-                  <h4 class="font-semibold text-gray-600">
-                    Wappzo Infotech Pvt Ltd
-                  </h4>
-                  <span
-                    class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded"
-                    >Jan 2026 - Present</span
-                  >
-                </div>
-                <p class="text-gray-500 text-sm">Web Development Intern</p>
-                <p class="text-gray-400 text-sm mt-2">
-                  Currently Working On social media platform - Socify using
-                  React.js and Tailwind CSS. Collaborated on implementing
-                  responsive UI components and improving user experience.
-                </p>
+            <div class="timeline-item">
+              <div class="timeline-dot-el"></div>
+              <span class="timeline-badge">Jan 2026 — Present</span>
+              <div class="timeline-title">Web Development Intern</div>
+              <div class="timeline-org">Wappzo Infotech Pvt. Ltd.</div>
+              <div class="timeline-desc">
+                Building and deploying full MERN stack applications. Led
+                development of Socify — a production social media platform with
+                real-time chat (Socket.io), JWT auth, email notifications
+                (Resend API), and Cloudinary image uploads. Deployed on Vercel
+                &amp; Render.
               </div>
             </div>
           </div>
-
-          <div
-            class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
-          >
+          <div class="glass-card">
             <h3
-              class="text-xl font-semibold text-blue-600 mb-6 flex items-center justify-center gap-2"
+              style="
+                font-family: &quot;Space Grotesk&quot;, sans-serif;
+                font-size: 1.05rem;
+                font-weight: 700;
+                color: #f1f5f9;
+                margin-bottom: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+              "
             >
-              <i class="fas fa-graduation-cap text-gray-600"></i>
-              Education
+              <i class="fas fa-graduation-cap" style="color: #8b5cf6"></i
+              >Education
             </h3>
-            <div class="space-y-6">
-              <div class="relative pl-8 timeline-dot">
-                <div class="flex items-center justify-between">
-                  <h4 class="font-semibold text-gray-600">
-                    Master of Computer Applications
-                  </h4>
-                  <span
-                    class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded"
-                    >2024 - Present</span
-                  >
-                </div>
-                <p class="text-gray-500 text-sm">
-                  Government MCA College, Maninagar, GTU
-                </p>
-                <p class="text-gray-500 text-sm">CPI: 7.31</p>
+            <div class="timeline-item" style="margin-bottom: 1.75rem">
+              <div class="timeline-dot-el"></div>
+              <span class="timeline-badge">2024 — Present</span>
+              <div class="timeline-title">
+                Master of Computer Applications (MCA)
               </div>
-              <div class="relative pl-8 timeline-dot">
-                <div class="flex items-center justify-between">
-                  <h4 class="font-semibold text-gray-600">
-                    Bachelor of Commerce
-                  </h4>
-                  <span
-                    class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded"
-                    >2021 - 2024</span
-                  >
-                </div>
-                <p class="text-gray-500 text-sm">
-                  S.S. Aggarwal College, VNSGU
-                </p>
-                <p class="text-gray-500 text-sm">CGPA: 6.50</p>
+              <div class="timeline-org">Govt. MCA College, Maninagar · GTU</div>
+              <div class="timeline-desc">
+                CPI: 7.31 &nbsp;·&nbsp; Specializing in Software Engg, Databases
+                &amp; Web Technologies
               </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot-el"></div>
+              <span class="timeline-badge">2021 — 2024</span>
+              <div class="timeline-title">Bachelor of Commerce (B.Com)</div>
+              <div class="timeline-org">S.S. Aggarwal College · VNSGU</div>
+              <div class="timeline-desc">CGPA: 6.50</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Project Section -->
-      <section id="projects" class="mb-20" data-aos="fade-up">
-        <h2 class="text-3xl font-bold flex items-center justify-center mb-2">
-          <span class="text-gray-600">Proj</span
-          ><span class="text-blue-600">ects</span>
-        </h2>
+      <!-- PROJECTS -->
+      <section id="projects" style="padding: 5rem 0" data-aos="fade-up">
+        <div style="text-align: center">
+          <div class="section-tag">
+            <i class="fas fa-folder-open"></i>&nbsp;Portfolio
+          </div>
+        </div>
+        <h2 class="section-title">Featured <span>Projects</span></h2>
+        <div class="section-line"></div>
         <div
-          class="h-1 w-15 bg-gradient-to-br from-gray-500 to-blue-500 mx-auto mb-8"
-        ></div>
-        <div class="grid md:grid-cols-2 gap-6">
-          <!-- P1 -->
-          <div
-            class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition"
-          >
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.75rem;
+          "
+        >
+          <!-- SOCIFY -->
+          <div class="project-card" data-aos="fade-up" data-aos-delay="0">
+            <div class="project-img-wrap">
+              <img src="/src/assets/image/Socify.png" alt="Socify" />
+              <div class="project-overlay">
+                <a
+                  href="https://github.com/Abhi-Senghawala/socify"
+                  target="_blank"
+                  rel="noopener"
+                  class="project-link-btn"
+                  ><i class="fab fa-github"></i
+                ></a>
+                <a
+                  href="https://socify-lime.vercel.app"
+                  target="_blank"
+                  rel="noopener"
+                  class="project-link-btn"
+                  ><i class="fas fa-external-link-alt"></i
+                ></a>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-badge purple">
+                <i class="fas fa-check-circle"></i>&nbsp;Completed · MERN Stack
+              </div>
+              <div class="project-name">Socify</div>
+              <div class="project-short">Full-Stack Social Media Platform</div>
+              <div class="project-desc">
+                Production-ready MERN social media platform with JWT
+                authentication, real-time messaging (Socket.io), user profiles,
+                posts, comments, Cloudinary media uploads, and Resend email
+                notifications. Fully deployed on Vercel &amp; Render.
+              </div>
+              <div class="tag-wrap">
+                <span class="tech-tag"
+                  ><i class="fab fa-react" style="color: #61dafb"></i
+                  >React.js</span
+                >
+                <span class="tech-tag"
+                  ><i class="fab fa-node-js" style="color: #539e43"></i
+                  >Node.js</span
+                >
+                <span class="tech-tag"
+                  ><i
+                    class="devicon-mongodb-plain"
+                    style="color: #4db33d; font-size: 0.85rem"
+                  ></i
+                  >MongoDB</span
+                >
+                <span class="tech-tag"
+                  ><i
+                    class="devicon-express-original"
+                    style="color: #e2e8f0; font-size: 0.85rem"
+                  ></i
+                  >Express</span
+                >
+                <span class="tech-tag"
+                  ><i class="fas fa-plug" style="color: #fff"></i
+                  >Socket.io</span
+                >
+                <span class="tech-tag"
+                  ><i
+                    class="devicon-tailwindcss-plain colored"
+                    style="font-size: 0.85rem"
+                  ></i
+                  >Tailwind</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- RETAIL ANALYTICS -->
+          <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="project-img-wrap">
+              <img
+                src="/src/assets/image/retail-analytics.png"
+                alt="Retail Analytics"
+              />
+              <div class="project-overlay">
+                <a href="#" class="project-link-btn"
+                  ><i class="fab fa-github"></i
+                ></a>
+                <a href="#" class="project-link-btn"
+                  ><i class="fas fa-external-link-alt"></i
+                ></a>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-badge purple">
+                <i class="fas fa-chart-bar"></i>&nbsp;Analytics Dashboard
+              </div>
+              <div class="project-name">Retail Analytics</div>
+              <div class="project-short">Business Intelligence Dashboard</div>
+              <div class="project-desc">
+                A powerful retail analytics platform with interactive charts,
+                real-time sales tracking, product performance metrics, revenue
+                trend analysis, and exportable reports. Built with React
+                frontend and Node/Express with MongoDB aggregation pipelines.
+              </div>
+              <div class="tag-wrap">
+                <span class="tech-tag"
+                  ><i class="fab fa-react" style="color: #61dafb"></i
+                  >React.js</span
+                >
+                <span class="tech-tag"
+                  ><i class="fab fa-node-js" style="color: #539e43"></i
+                  >Node.js</span
+                >
+                <span class="tech-tag"
+                  ><i
+                    class="devicon-mongodb-plain"
+                    style="color: #4db33d; font-size: 0.85rem"
+                  ></i
+                  >MongoDB</span
+                >
+                <span class="tech-tag"
+                  ><i class="fas fa-chart-line" style="color: #8b5cf6"></i
+                  >Chart.js</span
+                >
+                <span class="tech-tag"
+                  ><i
+                    class="devicon-express-original"
+                    style="color: #e2e8f0; font-size: 0.85rem"
+                  ></i
+                  >Express</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- SMART BILLING -->
+          <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="project-img-wrap">
+              <img
+                src="/src/assets/image/smart-billing.png"
+                alt="Smart Billing"
+              />
+              <div class="project-overlay">
+                <a href="#" class="project-link-btn"
+                  ><i class="fab fa-github"></i
+                ></a>
+                <a href="#" class="project-link-btn"
+                  ><i class="fas fa-external-link-alt"></i
+                ></a>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-badge green">
+                <i class="fas fa-receipt"></i>&nbsp;POS System
+              </div>
+              <div class="project-name">Smart Billing</div>
+              <div class="project-short">
+                Inventory &amp; Invoice Management
+              </div>
+              <div class="project-desc">
+                Full-featured POS and billing system with product CRUD, smart
+                invoice generation, printable PDF receipts, payment tracking,
+                sales history, and inventory alerts. MERN stack with a clean,
+                professional UI designed for retail businesses.
+              </div>
+              <div class="tag-wrap">
+                <span class="tech-tag"
+                  ><i class="fab fa-react" style="color: #61dafb"></i
+                  >React.js</span
+                >
+                <span class="tech-tag"
+                  ><i class="fab fa-node-js" style="color: #539e43"></i
+                  >Node.js</span
+                >
+                <span class="tech-tag"
+                  ><i
+                    class="devicon-mongodb-plain"
+                    style="color: #4db33d; font-size: 0.85rem"
+                  ></i
+                  >MongoDB</span
+                >
+                <span class="tech-tag"
+                  ><i class="fas fa-file-pdf" style="color: #ef4444"></i>PDF
+                  Gen</span
+                >
+                <span class="tech-tag"
+                  ><i
+                    class="devicon-express-original"
+                    style="color: #e2e8f0; font-size: 0.85rem"
+                  ></i
+                  >Express</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- FREELANCER -->
+          <div class="project-card" data-aos="fade-up" data-aos-delay="300">
             <div
-              class="h-48 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center relative overflow-hidden group"
+              class="project-img-wrap"
+              style="
+                background: linear-gradient(135deg, #1e293b, #0f172a);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
             >
-              <span class="text-white text-4xl font-bold">Socify</span>
-              <div
-                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center gap-4"
-              >
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition"
+              <div style="text-align: center">
+                <i
+                  class="fas fa-laptop-code"
+                  style="
+                    font-size: 4rem;
+                    color: #3b82f6;
+                    margin-bottom: 0.5rem;
+                    display: block;
+                  "
+                ></i
+                ><span
+                  style="
+                    color: #94a3b8;
+                    font-family: &quot;Space Grotesk&quot;, sans-serif;
+                    font-weight: 700;
+                    font-size: 1.1rem;
+                  "
+                  >Freelancer</span
                 >
-                  <i class="fab fa-github text-2xl"></i>
-                </a>
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition delay-75"
-                >
-                  <i class="fas fa-external-link-alt text-2xl"></i>
-                </a>
+              </div>
+              <div class="project-overlay">
+                <a href="#" class="project-link-btn"
+                  ><i class="fab fa-github"></i
+                ></a>
+                <a href="#" class="project-link-btn"
+                  ><i class="fas fa-external-link-alt"></i
+                ></a>
               </div>
             </div>
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-3">
-                <h3 class="text-xl font-semibold text-gray-700">Socify</h3>
-                <span
-                  class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded"
-                  >Feb 2026 - Present</span
-                >
+            <div class="project-body">
+              <div class="project-badge">
+                <i class="fas fa-desktop"></i>&nbsp;Frontend Project
               </div>
-              <p class="text-gray-600 text-sm mb-4">
-                Social Media Platform built with React and Tailwind CSS.
-              </p>
-              <p class="text-gray-500 text-sm mb-4">
-                Dynamic social media interface with modular component
-                architecture and responsive design. Simulated real-world social
-                features including posts, profiles, and navigation flows.
-              </p>
-              <div class="flex flex-wrap gap-2">
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="devicon-react-plain colored"></i>
-                  REACTJS
-                </span>
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="devicon-tailwindcss-plain colored"></i>
-                  TailwindCSS
-                </span>
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="devicon-redux-plain colored"></i>
-                  Redux
-                </span>
+              <div class="project-name">Freelancer Website</div>
+              <div class="project-short">Responsive Landing Page</div>
+              <div class="project-desc">
+                Professional, fully responsive freelancer portfolio website.
+                Features clean layout, cross-browser compatibility, mobile-first
+                design, smooth scrolling, and interactive UI elements built with
+                TailwindCSS and vanilla JavaScript.
               </div>
-            </div>
-          </div>
-
-          <!-- P2 -->
-          <div
-            class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition"
-          >
-            <div
-              class="h-48 bg-gradient-to-br from-gray-600 to-gray-700 flex items-center justify-center relative overflow-hidden group"
-            >
-              <span class="text-white text-4xl font-bold">Freelancer</span>
-              <div
-                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition flex items-center justify-center gap-4"
-              >
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition"
+              <div class="tag-wrap">
+                <span class="tech-tag"
+                  ><i
+                    class="devicon-tailwindcss-plain colored"
+                    style="font-size: 0.85rem"
+                  ></i
+                  >TailwindCSS</span
                 >
-                  <i class="fab fa-github text-2xl"></i>
-                </a>
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition delay-75"
+                <span class="tech-tag"
+                  ><i class="fab fa-js" style="color: #f7df1e"></i
+                  >JavaScript</span
                 >
-                  <i class="fas fa-external-link-alt text-2xl"></i>
-                </a>
-              </div>
-            </div>
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-3">
-                <h3 class="text-xl font-semibold text-gray-600">
-                  Freelancer Website
-                </h3>
-                <span
-                  class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded"
-                  >Feb 2026</span
+                <span class="tech-tag"
+                  ><i class="fab fa-html5" style="color: #e44d26"></i
+                  >HTML5</span
                 >
-              </div>
-              <p class="text-gray-600 text-sm mb-4">
-                Freelancer Website built with TailwindCSS.
-              </p>
-              <p class="text-gray-500 text-sm mb-4">
-                Designed and developed responsive website with clean layout
-                structure, cross-browser compatibility, and mobile-first design
-                principles with interactive elements.
-              </p>
-              <div class="flex flex-wrap gap-2">
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="devicon-tailwindcss-plain colored"></i>
-                  TailwindCSS
-                </span>
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="fab fa-js text-yellow-500"></i>
-                  JavaScript
-                </span>
-                <span
-                  class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded flex items-center gap-1"
-                >
-                  <i class="fab fa-html5 text-orange-500"></i>
-                  HTML5
-                </span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Certificate Section -->
-      <section id="certificates" class="mb-20" data-aos="fade-up">
-        <h2 class="text-3xl font-bold flex items-center justify-center mb-2">
-          <span class="text-gray-600">Certi</span
-          ><span class="text-blue-600">fication</span>
-        </h2>
-        <div
-          class="h-1 w-25 bg-gradient-to-br from-gray-500 to-blue-500 mx-auto mb-8"
-        ></div>
-        <div class="grid md:grid-cols-2 gap-6">
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition"
-          >
-            <div class="flex gap-4">
-              <div
-                class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center shrink-0"
-              >
-                <i class="fas fa-code text-blue-600 text-xl"></i>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-600 mb-1">
-                  Full Stack Development
-                </h3>
-                <p class="text-gray-500 text-sm">Udemy • 2025</p>
-                <p class="text-gray-500 text-sm mt-2">
-                  Comprehensive certification covering frontend and backend
-                  technologies including React, Tailwind, Node, Express, and
-                  databases.
-                </p>
-                <a
-                  href="#"
-                  class="text-blue-600 text-sm mt-2 inline-block hover:underline"
-                >
-                  View Certificate
-                  <i class="fas fa-external-link-alt ml-1 text-xs"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div
-            class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition"
-          >
-            <div class="flex gap-4">
-              <div
-                class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center shrink-0"
-              >
-                <i class="fas fa-language text-green-600 text-xl"></i>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-600">English Proficiency</h3>
-                <p class="text-gray-500 text-sm">Planet Education • 2025</p>
-                <p class="text-gray-500 text-sm mt-2">
-                  Certified for professional English communication skills,
-                  enabling effective collaboration in global teams and clear
-                  technical documentation.
-                </p>
-                <a
-                  href="#"
-                  class="text-blue-600 text-sm mt-2 inline-block hover:underline"
-                >
-                  View Certificate
-                  <i class="fas fa-external-link-alt ml-1 text-xs"></i>
-                </a>
-              </div>
-            </div>
+      <!-- CERTIFICATES -->
+      <section id="certificates" style="padding: 5rem 0" data-aos="fade-up">
+        <div style="text-align: center">
+          <div class="section-tag">
+            <i class="fas fa-certificate"></i>&nbsp;Credentials
           </div>
         </div>
-      </section>
-
-      <!-- Contact Section -->
-      <section id="contact" class="mb-20" data-aos="fade-up">
-        <h2 class="text-3xl font-bold mb-2 flex items-center justify-center">
-          <span class="text-gray-600">GetIn</span
-          ><span class="text-blue-600">Touch</span>
-        </h2>
+        <h2 class="section-title">My <span>Certificates</span></h2>
+        <div class="section-line"></div>
         <div
-          class="h-1 w-25 bg-gradient-to-br from-gray-500 to-blue-500 mx-auto mb-8"
-        ></div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-          <div class="grid md:grid-cols-2 gap-8">
-            <!-- Contact Info -->
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+          "
+        >
+          <div class="cert-card" data-aos="fade-up" data-aos-delay="0">
+            <div class="cert-icon blue"><i class="fas fa-code"></i></div>
             <div>
-              <h3 class="text-xl font-semibold text-gray-900 mb-4">
-                Contact Information
+              <div class="cert-name">Full Stack Development</div>
+              <div class="cert-org">Udemy &nbsp;·&nbsp; 2025</div>
+              <div class="cert-desc">
+                Covers React, Node.js, Express, MongoDB, Tailwind CSS, and REST
+                APIs with real-world projects.
+              </div>
+              <a href="#" class="cert-link"
+                >View Certificate &nbsp;<i
+                  class="fas fa-external-link-alt"
+                  style="font-size: 0.7rem"
+                ></i
+              ></a>
+            </div>
+          </div>
+          <div class="cert-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="cert-icon green"><i class="fas fa-language"></i></div>
+            <div>
+              <div class="cert-name">English Proficiency</div>
+              <div class="cert-org">Planet Education &nbsp;·&nbsp; 2025</div>
+              <div class="cert-desc">
+                Certified for professional English communication and technical
+                documentation in global teams.
+              </div>
+              <a href="#" class="cert-link"
+                >View Certificate &nbsp;<i
+                  class="fas fa-external-link-alt"
+                  style="font-size: 0.7rem"
+                ></i
+              ></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" style="padding: 5rem 0" data-aos="fade-up">
+        <div style="text-align: center">
+          <div class="section-tag">
+            <i class="fas fa-envelope"></i>&nbsp;Contact
+          </div>
+        </div>
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <div class="section-line"></div>
+        <div class="glass-card">
+          <div
+            id="contactGrid"
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem"
+          >
+            <div>
+              <h3
+                style="
+                  font-family: &quot;Space Grotesk&quot;, sans-serif;
+                  font-weight: 700;
+                  color: #f1f5f9;
+                  font-size: 1.2rem;
+                  margin-bottom: 1rem;
+                "
+              >
+                Let's Work Together
               </h3>
-              <div class="space-y-4">
-                <div class="flex items-center gap-3">
-                  <div
-                    class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center"
-                  >
-                    <i class="fas fa-envelope text-blue-600"></i>
+              <p
+                style="
+                  color: #64748b;
+                  font-size: 0.9rem;
+                  line-height: 1.8;
+                  margin-bottom: 2rem;
+                "
+              >
+                Have a project in mind or want to collaborate? I'd love to hear
+                from you. Let's build something amazing!
+              </p>
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  gap: 0.75rem;
+                  margin-bottom: 2rem;
+                "
+              >
+                <div class="contact-info-item">
+                  <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
                   </div>
                   <div>
-                    <p class="text-sm text-gray-500">Email</p>
-                    <p class="text-gray-900">abhisenghawala@gmail.com</p>
+                    <div style="font-size: 0.72rem; color: #64748b">Email</div>
+                    <div
+                      style="
+                        color: #e2e8f0;
+                        font-weight: 500;
+                        font-size: 0.9rem;
+                      "
+                    >
+                      abhisenghawala@gmail.com
+                    </div>
                   </div>
                 </div>
-                <div class="flex items-center gap-3">
-                  <div
-                    class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center"
-                  >
-                    <i class="fas fa-phone text-blue-600"></i>
-                  </div>
+                <div class="contact-info-item">
+                  <div class="contact-icon"><i class="fas fa-phone"></i></div>
                   <div>
-                    <p class="text-sm text-gray-500">Mobile No.</p>
-                    <p class="text-gray-900">+91 95103 73689</p>
+                    <div style="font-size: 0.72rem; color: #64748b">Phone</div>
+                    <div
+                      style="
+                        color: #e2e8f0;
+                        font-weight: 500;
+                        font-size: 0.9rem;
+                      "
+                    >
+                      +91 95103 73689
+                    </div>
                   </div>
                 </div>
-                <div class="flex items-center gap-3">
-                  <div
-                    class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center"
-                  >
-                    <i class="fas fa-map-marker-alt text-blue-600"></i>
+                <div class="contact-info-item">
+                  <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
                   </div>
                   <div>
-                    <p class="text-sm text-gray-500">Location</p>
-                    <p class="text-gray-900">Navsari | Ahmedabad</p>
+                    <div style="font-size: 0.72rem; color: #64748b">
+                      Location
+                    </div>
+                    <div
+                      style="
+                        color: #e2e8f0;
+                        font-weight: 500;
+                        font-size: 0.9rem;
+                      "
+                    >
+                      Navsari | Ahmedabad, Gujarat
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <div class="mt-8">
-                <h4 class="font-semibold text-gray-900 mb-4">Social Links</h4>
-                <div class="flex gap-4">
-                  <a
-                    href="https://linkedin.com/in/abhi-senghawala"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-blue-100 transition"
-                  >
-                    <i class="fab fa-linkedin-in text-blue-600"></i>
-                  </a>
-                  <a
-                    href="https://github.com/Abhi-Senghawala"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-gray-200 transition"
-                  >
-                    <i class="fab fa-github text-gray-700"></i>
-                  </a>
-                  <a
-                    href="/src/assets/PDF/Abhi-resume.pdf"
-                    download
-                    class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-green-100 transition"
-                  >
-                    <i class="fas fa-download text-green-600"></i>
-                  </a>
-                  <a
-                    href="mailto:abhisenghawala@gmail.com"
-                    class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-red-100 transition"
-                  >
-                    <i class="fas fa-envelope text-red-600"></i>
-                  </a>
-                </div>
+              <div style="display: flex; gap: 0.75rem">
+                <a
+                  href="https://linkedin.com/in/abhi-senghawala"
+                  target="_blank"
+                  rel="noopener"
+                  class="social-btn linkedin"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <a
+                  href="https://github.com/Abhi-Senghawala"
+                  target="_blank"
+                  rel="noopener"
+                  class="social-btn github"
+                  ><i class="fab fa-github"></i
+                ></a>
+                <a
+                  href="/src/assets/PDF/Abhi-resume.pdf"
+                  download
+                  class="social-btn download"
+                  ><i class="fas fa-download"></i
+                ></a>
+                <a
+                  href="mailto:abhisenghawala@gmail.com"
+                  class="social-btn email"
+                  ><i class="fas fa-envelope"></i
+                ></a>
               </div>
             </div>
-
             <div>
               <form
                 id="contact-form"
-                class="space-y-4"
-                action="https://formspree.io/f/your-form-id"
-                method="POST"
+                style="display: flex; flex-direction: column; gap: 1.1rem"
               >
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1"
-                    >Name</label
-                  >
-                  <input
+                  <label class="form-label">Your Name</label
+                  ><input
                     type="text"
                     name="name"
                     required
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    class="form-input"
+                    placeholder="John Doe"
                   />
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1"
-                    >Email</label
-                  >
-                  <input
+                  <label class="form-label">Email Address</label
+                  ><input
                     type="email"
                     name="email"
                     required
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    class="form-input"
+                    placeholder="john@email.com"
                   />
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1"
-                    >Message</label
-                  >
-                  <textarea
+                  <label class="form-label">Message</label
+                  ><textarea
                     name="message"
                     rows="4"
                     required
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    class="form-input"
+                    placeholder="Tell me about your project..."
+                    style="resize: vertical"
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+                  class="btn-primary"
+                  style="justify-content: center"
                 >
-                  Send Message
+                  <i class="fas fa-paper-plane"></i>&nbsp;Send Message
                 </button>
-                <div id="form-status" class="text-sm text-center"></div>
+                <div
+                  id="form-status"
+                  style="font-size: 0.85rem; text-align: center"
+                ></div>
               </form>
             </div>
           </div>
@@ -1052,351 +1177,332 @@
       </section>
     </main>
 
-    <footer class="bg-white border-t border-gray-200 py-8">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center text-gray-500 text-sm">
-          <p>
-            &copy; 2026 Abhi Senghawala. Built with
-            <i class="fas fa-heart text-red-500"></i> using Tailwind CSS
-          </p>
-          <p class="mt-2">
-            <a href="#home" class="hover:text-blue-600 transition"
-              >Back to Top</a
-            >
-          </p>
-        </div>
+    <footer>
+      <div style="max-width: 1200px; margin: 0 auto; padding: 0 1.5rem">
+        <p style="margin-bottom: 0.5rem">
+          © <span id="footerYear">2026</span>
+          <strong style="color: #60a5fa">Abhi Senghawala</strong>. Crafted with
+          <i class="fas fa-heart" style="color: #ef4444"></i> using MERN Stack
+        </p>
+        <a href="#home">↑ Back to Top</a>
       </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-      AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100,
+      // AOS
+      AOS.init({ duration: 700, once: true, offset: 80 });
+
+      // Footer year
+      document.getElementById("footerYear").textContent =
+        new Date().getFullYear();
+
+      // SPLASH SCREEN
+      window.addEventListener("load", () => {
+        setTimeout(() => {
+          document.getElementById("splash-screen").classList.add("hidden");
+        }, 2600);
       });
 
-      function toggleTheme() {
-        const body = document.body;
-        const themeToggle = document.getElementById("themeToggle");
-        const themeToggleMobile = document.getElementById("themeToggleMobile");
-        const icon = themeToggle.querySelector("i");
-        const mobileIcon = themeToggleMobile.querySelector("i");
+      // PARTICLES
+      (function () {
+        const canvas = document.getElementById("particle-canvas");
+        const ctx = canvas.getContext("2d");
+        let P = [];
+        function resize() {
+          canvas.width = innerWidth;
+          canvas.height = innerHeight;
+        }
+        resize();
+        window.addEventListener("resize", resize);
+        class Pt {
+          constructor() {
+            this.reset();
+          }
+          reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = (Math.random() - 0.5) * 0.4;
+            this.r = Math.random() * 1.5 + 0.5;
+            this.a = Math.random() * 0.4 + 0.1;
+            this.c = Math.random() > 0.5 ? "59,130,246" : "139,92,246";
+          }
+          tick() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if (
+              this.x < 0 ||
+              this.x > canvas.width ||
+              this.y < 0 ||
+              this.y > canvas.height
+            )
+              this.reset();
+          }
+          draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${this.c},${this.a})`;
+            ctx.fill();
+          }
+        }
+        for (let i = 0; i < 80; i++) P.push(new Pt());
+        function connect() {
+          for (let i = 0; i < P.length; i++)
+            for (let j = i + 1; j < P.length; j++) {
+              const dx = P[i].x - P[j].x,
+                dy = P[i].y - P[j].y,
+                d = Math.sqrt(dx * dx + dy * dy);
+              if (d < 120) {
+                ctx.beginPath();
+                ctx.moveTo(P[i].x, P[i].y);
+                ctx.lineTo(P[j].x, P[j].y);
+                ctx.strokeStyle = `rgba(59,130,246,${0.07 * (1 - d / 120)})`;
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+              }
+            }
+        }
+        function loop() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          P.forEach((p) => {
+            p.tick();
+            p.draw();
+          });
+          connect();
+          requestAnimationFrame(loop);
+        }
+        loop();
+      })();
 
-        body.classList.toggle("dark-mode");
-
-        if (body.classList.contains("dark-mode")) {
-          icon.classList.remove("fa-moon");
-          icon.classList.add("fa-sun");
-          mobileIcon.classList.remove("fa-moon");
-          mobileIcon.classList.add("fa-sun");
-          localStorage.setItem("theme", "dark");
+      // RESPONSIVE
+      function applyResp() {
+        const w = innerWidth;
+        const heroInner = document.getElementById("heroInner");
+        const aboutInner = document.getElementById("aboutInner");
+        const expGrid = document.getElementById("expGrid");
+        const contactGrid = document.getElementById("contactGrid");
+        const statsGrid = document.getElementById("statsGrid");
+        if (w >= 900) {
+          if (heroInner) {
+            heroInner.style.flexDirection = "row";
+            heroInner.style.justifyContent = "space-between";
+          }
+          if (aboutInner) aboutInner.style.gridTemplateColumns = "1fr 1fr";
+          if (expGrid) expGrid.style.gridTemplateColumns = "1fr 1fr";
+          if (contactGrid) contactGrid.style.gridTemplateColumns = "1fr 1fr";
+          if (statsGrid) statsGrid.style.gridTemplateColumns = "repeat(3,1fr)";
         } else {
-          icon.classList.remove("fa-sun");
-          icon.classList.add("fa-moon");
-          mobileIcon.classList.remove("fa-sun");
-          mobileIcon.classList.add("fa-moon");
-          localStorage.setItem("theme", "light");
+          if (heroInner) {
+            heroInner.style.flexDirection = "column";
+            heroInner.style.justifyContent = "flex-start";
+          }
+          if (aboutInner) aboutInner.style.gridTemplateColumns = "1fr";
+          if (expGrid) expGrid.style.gridTemplateColumns = "1fr";
+          if (contactGrid) contactGrid.style.gridTemplateColumns = "1fr";
+          if (statsGrid) statsGrid.style.gridTemplateColumns = "repeat(2,1fr)";
         }
       }
+      applyResp();
+      window.addEventListener("resize", applyResp);
 
+      // NAVBAR
+      window.addEventListener("scroll", () => {
+        const nb = document.getElementById("navbar");
+        window.scrollY > 50
+          ? nb.classList.add("scrolled")
+          : nb.classList.remove("scrolled");
+        let cur = "";
+        document.querySelectorAll("section").forEach((s) => {
+          if (window.scrollY >= s.offsetTop - 120) cur = s.id;
+        });
+        document.querySelectorAll(".nav-link").forEach((l) => {
+          l.classList.remove("active");
+          if (l.getAttribute("href") === "#" + cur) l.classList.add("active");
+        });
+        const btn = document.getElementById("backToTop");
+        window.scrollY > 500
+          ? btn.classList.add("show")
+          : btn.classList.remove("show");
+      });
+      document
+        .getElementById("backToTop")
+        .addEventListener("click", () =>
+          window.scrollTo({ top: 0, behavior: "smooth" }),
+        );
+
+      // SMOOTH SCROLL
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", function (e) {
+          const h = this.getAttribute("href");
+          if (h === "#") return;
+          e.preventDefault();
+          const t = document.querySelector(h);
+          if (t) t.scrollIntoView({ behavior: "smooth" });
+          const m = document.getElementById("mobile-menu");
+          if (!m.classList.contains("hidden")) m.classList.add("hidden");
+        });
+      });
+
+      // SWIPER
+      document.addEventListener("DOMContentLoaded", () => {
+        new Swiper(".skills-swiper", {
+          slidesPerView: 3,
+          spaceBetween: 16,
+          loop: true,
+          speed: 3000,
+          allowTouchMove: false,
+          autoplay: {
+            delay: 0,
+            disableOnInteraction: false,
+          },
+          breakpoints: {
+            640: { slidesPerView: 4, spaceBetween: 20 },
+            1024: { slidesPerView: 6, spaceBetween: 24 },
+          },
+        });
+        loadTheme();
+        loadCurrentUser();
+      });
+
+      // THEME (default dark)
+      function toggleTheme() {
+        document.body.classList.toggle("light-mode");
+        const isLight = document.body.classList.contains("light-mode");
+        document
+          .querySelectorAll(".theme-toggle i")
+          .forEach(
+            (i) => (i.className = isLight ? "fas fa-moon" : "fas fa-sun"),
+          );
+        localStorage.setItem("theme", isLight ? "light" : "dark");
+      }
       function loadTheme() {
-        const savedTheme = localStorage.getItem("theme");
-        const body = document.body;
-        const themeToggle = document.getElementById("themeToggle");
-        const themeToggleMobile = document.getElementById("themeToggleMobile");
-
-        if (savedTheme === "dark") {
-          body.classList.add("dark-mode");
-          if (themeToggle) {
-            themeToggle.querySelector("i").classList.remove("fa-moon");
-            themeToggle.querySelector("i").classList.add("fa-sun");
-          }
-          if (themeToggleMobile) {
-            themeToggleMobile.querySelector("i").classList.remove("fa-moon");
-            themeToggleMobile.querySelector("i").classList.add("fa-sun");
-          }
+        if (localStorage.getItem("theme") === "light") {
+          document.body.classList.add("light-mode");
+          document
+            .querySelectorAll(".theme-toggle i")
+            .forEach((i) => (i.className = "fas fa-moon"));
         }
       }
-      let currentUser = null;
 
+      // AUTH
+      let currentUser = null;
       function showAuthModal() {
         document.getElementById("authModal").classList.add("show");
         document.body.style.overflow = "hidden";
       }
-
       function closeAuthModal() {
         document.getElementById("authModal").classList.remove("show");
-        document.body.style.overflow = "auto";
+        document.body.style.overflow = "";
       }
-
       function showRegister() {
-        document.getElementById("loginForm").classList.add("hidden");
-        document.getElementById("registerForm").classList.remove("hidden");
+        document.getElementById("loginForm").style.display = "none";
+        document.getElementById("registerForm").style.display = "flex";
         document.getElementById("modalTitle").textContent = "Register";
         document.getElementById("authMessage").innerHTML = "";
       }
-
       function showLogin() {
-        document.getElementById("registerForm").classList.add("hidden");
-        document.getElementById("loginForm").classList.remove("hidden");
+        document.getElementById("registerForm").style.display = "none";
+        document.getElementById("loginForm").style.display = "flex";
         document.getElementById("modalTitle").textContent = "Login";
         document.getElementById("authMessage").innerHTML = "";
       }
-
-      function handleLogin(event) {
-        event.preventDefault();
-        const email = document.getElementById("loginEmail").value;
-        const password = document.getElementById("loginPassword").value;
+      function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById("loginEmail").value,
+          pass = document.getElementById("loginPassword").value;
         const users = JSON.parse(localStorage.getItem("users") || "[]");
         const user = users.find(
-          (u) => u.email === email && u.password === password
+          (u) => u.email === email && u.password === pass,
         );
-
         if (user) {
           currentUser = user;
           localStorage.setItem("currentUser", JSON.stringify(user));
           updateAuthUI();
           closeAuthModal();
-          showMessage("Login successful!", "success");
         } else {
-          document.getElementById("authMessage").innerHTML =
-            "Invalid email or password";
-          document.getElementById("authMessage").style.color = "#ef4444";
+          const m = document.getElementById("authMessage");
+          m.textContent = "Invalid email or password";
+          m.style.color = "#ef4444";
         }
       }
-
-      function handleRegister(event) {
-        event.preventDefault();
-        const name = document.getElementById("registerName").value;
-        const email = document.getElementById("registerEmail").value;
-        const password = document.getElementById("registerPassword").value;
-        const confirmPassword = document.getElementById(
-          "registerConfirmPassword"
-        ).value;
-
-        if (password !== confirmPassword) {
-          document.getElementById("authMessage").innerHTML =
+      function handleRegister(e) {
+        e.preventDefault();
+        const name = document.getElementById("registerName").value,
+          email = document.getElementById("registerEmail").value;
+        const pass = document.getElementById("registerPassword").value,
+          confirm = document.getElementById("registerConfirmPassword").value;
+        if (pass !== confirm) {
+          document.getElementById("authMessage").textContent =
             "Passwords do not match";
           document.getElementById("authMessage").style.color = "#ef4444";
           return;
         }
-
         const users = JSON.parse(localStorage.getItem("users") || "[]");
-
         if (users.find((u) => u.email === email)) {
-          document.getElementById("authMessage").innerHTML =
+          document.getElementById("authMessage").textContent =
             "Email already registered";
           document.getElementById("authMessage").style.color = "#ef4444";
           return;
         }
-
-        const newUser = { name, email, password };
-        users.push(newUser);
+        const nu = { name, email, password: pass };
+        users.push(nu);
         localStorage.setItem("users", JSON.stringify(users));
-
-        currentUser = newUser;
-        localStorage.setItem("currentUser", JSON.stringify(newUser));
+        currentUser = nu;
+        localStorage.setItem("currentUser", JSON.stringify(nu));
         updateAuthUI();
         closeAuthModal();
-        showMessage("Registration successful!", "success");
       }
-
       function logout() {
         currentUser = null;
         localStorage.removeItem("currentUser");
         updateAuthUI();
-        showMessage("Logged out successfully", "success");
       }
-
       function updateAuthUI() {
-        const authSection = document.getElementById("authSection");
-        const mobileAuthSection = document.getElementById("mobileAuthSection");
-
+        const a = document.getElementById("authSection"),
+          am = document.getElementById("mobileAuthSection");
         if (currentUser) {
-          authSection.innerHTML = `
-            <div class="flex items-center space-x-3">
-              <div class="user-avatar" onclick="showUserMenu()">
-                ${currentUser.name.charAt(0).toUpperCase()}
-              </div>
-              <button onclick="logout()" class="text-sm text-gray-700 hover:text-blue-600 transition">
-                Logout
-              </button>
-            </div>
-          `;
-
-          mobileAuthSection.innerHTML = `
-            <div class="py-2 space-y-2">
-              <div class="flex items-center space-x-3 px-2">
-                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
-                  ${currentUser.name.charAt(0).toUpperCase()}
-                </div>
-                <span class="text-gray-700">${currentUser.name}</span>
-              </div>
-              <button onclick="logout()" class="w-full text-left px-2 py-2 text-gray-700 hover:text-blue-600 transition">
-                <i class="fas fa-sign-out-alt mr-2"></i>Logout
-              </button>
-            </div>
-          `;
+          a.innerHTML = `<div style="display:flex;align-items:center;gap:0.6rem;"><div class="user-avatar" onclick="showUserMenu()">${currentUser.name[0].toUpperCase()}</div><button onclick="logout()" style="color:#64748b;font-size:0.8rem;background:none;border:none;cursor:pointer;">Logout</button></div>`;
+          am.innerHTML = `<div style="color:#94a3b8;font-size:0.9rem;">${currentUser.name}</div><button onclick="logout()" style="color:#64748b;font-size:0.85rem;background:none;border:none;cursor:pointer;margin-top:0.25rem;"><i class="fas fa-sign-out-alt"></i> Logout</button>`;
         } else {
-          authSection.innerHTML = `
-            <button onclick="showAuthModal()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-medium">
-              Login / Register
-            </button>
-          `;
-
-          mobileAuthSection.innerHTML = `
-            <button onclick="showAuthModal()" class="w-full text-left px-2 py-2 text-gray-700 hover:text-blue-600 transition">
-              <i class="fas fa-sign-in-alt mr-2"></i>Login / Register
-            </button>
-          `;
+          a.innerHTML = `<button onclick="showAuthModal()" class="btn-primary" style="padding:0.5rem 1.25rem;font-size:0.8rem;">Login</button>`;
+          am.innerHTML = `<button onclick="showAuthModal()" style="color:#94a3b8;background:none;border:none;cursor:pointer;font-size:0.9rem;"><i class="fas fa-sign-in-alt"></i> Login / Register</button>`;
         }
       }
-
       function showUserMenu() {
         alert(`Logged in as: ${currentUser.name}\nEmail: ${currentUser.email}`);
       }
-
-      function showMessage(message, type) {
-        const status = document.getElementById("form-status");
-        status.innerHTML = message;
-        status.classList.add(
-          type === "success" ? "text-green-600" : "text-red-600"
-        );
-        setTimeout(() => {
-          status.innerHTML = "";
-          status.classList.remove("text-green-600", "text-red-600");
-        }, 3000);
-      }
-
       function loadCurrentUser() {
-        const savedUser = localStorage.getItem("currentUser");
-        if (savedUser) {
-          currentUser = JSON.parse(savedUser);
+        const s = localStorage.getItem("currentUser");
+        if (s) {
+          currentUser = JSON.parse(s);
           updateAuthUI();
-        }
+        } else updateAuthUI();
       }
-
-      document
-        .getElementById("contact-form")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          const status = document.getElementById("form-status");
-
-          if (currentUser) {
-            status.innerHTML = "✓ Message sent successfully! (Demo)";
-            status.classList.add("text-green-600");
-            setTimeout(() => (status.innerHTML = ""), 3000);
-            this.reset();
-          } else {
-            showAuthModal();
-            document.getElementById("authMessage").innerHTML =
-              "Please login to send a message";
-            document.getElementById("authMessage").style.color = "#ef4444";
-          }
-        });
-
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute("href"));
-          if (target) {
-            target.scrollIntoView({ behavior: "smooth" });
-          }
-        });
-      });
-
-      window.addEventListener("scroll", () => {
-        let current = "";
-        const sections = document.querySelectorAll("section");
-        const navLinks = document.querySelectorAll(
-          ".md\\:flex a, #mobile-menu a"
-        );
-
-        sections.forEach((section) => {
-          const sectionTop = section.offsetTop - 100;
-          if (window.scrollY >= sectionTop) {
-            current = section.getAttribute("id");
-          }
-        });
-
-        navLinks.forEach((link) => {
-          link.classList.remove("text-blue-600");
-          if (link.getAttribute("href") === "#" + current) {
-            link.classList.add("text-blue-600");
-          }
-        });
-      });
-
-      const backToTop = document.getElementById("backToTop");
-
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 500) {
-          backToTop.classList.add("show");
-        } else {
-          backToTop.classList.remove("show");
-        }
-      });
-
-      backToTop.addEventListener("click", () => {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      });
-
-      document.addEventListener("DOMContentLoaded", () => {
-        const year = new Date().getFullYear();
-        const footerYear = document.querySelector("footer p");
-        if (footerYear) {
-          footerYear.innerHTML = footerYear.innerHTML.replace("2026", year);
-        }
-      });
-
       window.addEventListener("click", (e) => {
-        const modal = document.getElementById("authModal");
-        if (e.target === modal) {
-          closeAuthModal();
-        }
+        if (e.target === document.getElementById("authModal")) closeAuthModal();
       });
 
+      // CONTACT FORM
       document.addEventListener("DOMContentLoaded", () => {
-        new Swiper(".skills-swiper", {
-          slidesPerView: 3,
-          spaceBetween: 16,
-          loop: false,
-          speed: 800,
-          autoplay:{
-            delay: 3000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-          },
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          },
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-          },
-          breakpoints: {
-            640: {
-              slidesPerView: 4,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 5,
-              spaceBetween: 24,
-            },
-          },
-        });
-      });
-
-      document.addEventListener("DOMContentLoaded", () => {
-        loadTheme();
-        loadCurrentUser();
+        document
+          .getElementById("contact-form")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            const status = document.getElementById("form-status");
+            if (currentUser) {
+              status.innerHTML =
+                '<span style="color:#34d399;">✓ Message sent successfully!</span>';
+              setTimeout(() => (status.innerHTML = ""), 3000);
+              this.reset();
+            } else {
+              showAuthModal();
+              document.getElementById("authMessage").textContent =
+                "Please login to send a message";
+              document.getElementById("authMessage").style.color = "#ef4444";
+            }
+          });
       });
     </script>
   </body>
